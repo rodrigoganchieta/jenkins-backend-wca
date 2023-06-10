@@ -1,4 +1,4 @@
-package br.ce.wcaquino.taskbackend.controller;
+package br.ce.rodrigoganchieta.taskbackend.controller;
 
 import java.util.List;
 
@@ -14,10 +14,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.ce.wcaquino.taskbackend.model.Task;
-import br.ce.wcaquino.taskbackend.repo.TaskRepo;
-import br.ce.wcaquino.taskbackend.utils.DateUtils;
-import br.ce.wcaquino.taskbackend.utils.ValidationException;
+import br.ce.rodrigoganchieta.taskbackend.model.Task;
+import br.ce.rodrigoganchieta.taskbackend.repo.TaskRepo;
+import br.ce.rodrigoganchieta.taskbackend.utils.DateUtils;
+import br.ce.rodrigoganchieta.taskbackend.utils.ValidationException;
 
 @RestController
 @RequestMapping(value ="/todo")
@@ -45,7 +45,7 @@ public class TaskController {
 		Task saved = todoRepo.save(todo);
 		return new ResponseEntity<Task>(saved, HttpStatus.CREATED);
 	}
-	 
+	
 	@DeleteMapping(value = "/{id}")
 	@ResponseStatus(code = HttpStatus.NO_CONTENT)
 	public void delete(@PathVariable Long id) {
