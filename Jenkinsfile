@@ -36,7 +36,7 @@ pipeline {
         }
         stage ('API Test') {
             steps {
-                dir('api-test') {
+                dir('jenkins-api-test-wca') {
                     git credentialsId: 'github_login', url: 'https://github.com/rodrigoganchieta/jenkins-api-test-wca'
                     bat 'mvn test'
                 }
@@ -44,16 +44,16 @@ pipeline {
         }
         stage ('Deploy Frontend') {
             steps {
-                dir('frontend') {
+                dir('jenkins-frontend-wca') {
                     git credentialsId: 'github_login', url: 'https://rodrigoganchieta/jenkins-frontend-wca'
                     bat 'mvn clean package'
-                    deploy adapters: [tomcat8(credentialsId: 'TomcatLogin', path: '', url: 'http://192.168.15.15:8001/')], contextPath: 'tasks', war: 'target/tasks.war'
+                    deploy adapters: [tomcat8(credentialsId: 'TomcatLogin', path: '', url: 'http://192.168.15.15:8001/')], contextPath: 'tasks', war: 'target/jenkins-frontend-wca.war'
                 }
             }
         }
         stage ('Functional Test') {
             steps {
-                dir('functional-test') {
+                dir('tasks-functional-tests') {
                     git credentialsId: 'github_login', url: 'https://github.com/rodrigoganchieta/jenkins-functional-tests-wca'
                     bat 'mvn test'
                 }
@@ -68,7 +68,7 @@ pipeline {
         stage ('Health Check') {
             steps {
                 sleep(5)
-                dir('functional-test') {
+                dir('tasks-functional-tests') {
                     bat 'mvn verify -Dskip.surefire.tests'
                 }
             }
@@ -77,7 +77,7 @@ pipeline {
     post {
         always {
             junit allowEmptyResults: true, testResults: 'target/surefire-reports/*.xml, api-test/target/surefire-reports/*.xml, functional-test/target/surefire-reports/*.xml, functional-test/target/failsafe-reports/*.xml'
-            archiveArtifacts artifacts: 'target/jenkins-backend-wca.war, frontend/target/tasks.war', onlyIfSuccessful: true
+            archiveArtifacts artifacts: 'target/jenkins-backend-wca.war, jenkins-frontend-wca/target/jenkins-frontend-wca.war', onlyIfSuccessful: true
         }
         unsuccessful {
             emailext attachLog: true, body: 'See the attached log below', subject: 'Build $BUILD_NUMBER has failed', to: 'rodrigoganchieta+jenkins@gmail.com'
