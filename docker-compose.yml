@@ -18,8 +18,8 @@ services:
     build:
       context: .
       args:
-        - WAR_FILE=target/tasks-backend.war
-        - CONTEXT=tasks-backend
+        - WAR_FILE=target/jenkins-backend-wca.war
+        - CONTEXT=jenkins-backend-wca
     networks:
       - prod_net_back
       - prod_net_front

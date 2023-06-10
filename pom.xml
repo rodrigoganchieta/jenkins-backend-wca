@@ -10,9 +10,9 @@
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>br.ce.rodrigoganchieta</groupId>
-	<artifactId>tasks-backend</artifactId>
+	<artifactId>jenkins-backend-wca</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>tasks-backend</name>
+	<name>jenkins-backend-wca</name>
 	<packaging>war</packaging>
 	<description>A very simple task management tool</description>
 
@@ -57,7 +57,7 @@
 	</dependencies>
 
 	<build>
-		<finalName>tasks-backend</finalName>
+		<finalName>jenkins-backend-wca</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
